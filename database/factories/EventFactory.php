@@ -20,6 +20,7 @@ class EventFactory extends Factory
             'title' => $this->faker->firstName,
             'start_event' => $this->faker->dateTimeBetween('-10 days', '2 days'),
             'end_event' => $this->faker->dateTimeBetween('5 days', '10 days'),
+            'user_id' => 1
         ];
     }
 }

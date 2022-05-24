@@ -18,6 +18,7 @@ class CreateEventsTable extends Migration
             $table->string('title')->default('Unknown event');
             $table->dateTime('start_event');
             $table->dateTime('end_event');
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
             $table->softDeletes();
         });
