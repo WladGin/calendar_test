@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\EventController;
+use App\Http\API\Controllers\ApiEventController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,5 +20,9 @@ Route::middleware(['auth'])->group(function (){
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('/calendar', [EventController::class, 'index'])->name('calendar.index');
+    Route::get('/calendar', [\App\Http\Controllers\EventController::class, 'index'])->name('calendar.index');
+    Route::get('/calendar/events', [ApiEventController::class, 'index'])->name('api.calendar.index');
+    Route::post('/calendar/create-event', [ApiEventController::class, 'create'])->name('api.calendar.create');
+    Route::patch('/calendar/edit-event', [ApiEventController::class, 'edit'])->name('api.calendar.edit');
+    Route::delete('/calendar/remove-event', [ApiEventController::class, 'destroy'])->name('api.calendar.destroy');
 });
