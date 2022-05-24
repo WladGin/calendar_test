@@ -2,7 +2,9 @@
 
 namespace App\Http\API\Requests;
 
+use App\Models\Event;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateEventRequest extends FormRequest
 {
@@ -24,7 +26,10 @@ class UpdateEventRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'id' => ['required', Rule::exists(Event::class)],
+            'title' => ['required', 'string', 'max:100'],
+            'start' => ['required', 'date'],
+            'end' => ['required', 'date']
         ];
     }
 }
