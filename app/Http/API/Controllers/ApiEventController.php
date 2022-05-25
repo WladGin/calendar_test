@@ -11,6 +11,7 @@ use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class ApiEventController extends Controller
 {
@@ -74,12 +75,11 @@ class ApiEventController extends Controller
     public function edit(Request $request)
     {
         $input = $request->only(['id', 'title', 'start', 'end']);
-
         $request_data = [
-            'id' => 'required|exists:'. Event::class,
-            'title' => 'required|string|max:100',
-            'start' => 'required|date',
-            'end' => 'required|date'
+            'id' => ['required', Rule::exists(Event::class)],
+            'title' => ['required', 'string', 'max:100'],
+            'start' => ['required', 'date'],
+            'end' => ['required', 'date']
         ];
 
         $validator = Validator::make($input, $request_data);
@@ -107,8 +107,6 @@ class ApiEventController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Event $event
      */
     public function destroy(Request $request)
     {
